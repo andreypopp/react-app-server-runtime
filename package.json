@@ -1,0 +1,32 @@
+{
+  "name": "react-app-server-runtime",
+  "version": "0.0.0",
+  "description": "Minimal Node-based runtime to eval React components on server",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec specs/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "andreypopp/react-app-server-runtime"
+  },
+  "keywords": [
+    "react",
+    "node",
+    "runtime",
+    "server-side-rendering",
+    "vm"
+  ],
+  "author": "Andrey Popp <8mayday@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "semver": "~2.2.1",
+    "mocha": "~1.14.0",
+    "jshint": "~2.3.0"
+  },
+  "dependencies": {
+    "xhr2": "0.0.7",
+    "source-map": "~0.1.31",
+    "lodash": "~2.3.0"
+  }
+}
