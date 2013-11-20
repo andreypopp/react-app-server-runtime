@@ -21,7 +21,7 @@ function prepareStackTrace(error, stack) {
         };
 
     if (position.source === undefined || position.source === 'undefined') {
-      position = __sourceMap.map.originalPositionFor(position);
+      position = __sourceMap.originalPositionFor(position);
     }
     return '    at ' + name + ' (' + position.source + ':' + position.line + ':0)';
   }).join('\n');
