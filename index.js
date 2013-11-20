@@ -47,8 +47,12 @@ function evaluate(opts, cb) {
   dom.run(function() {
 
     try {
-      if (opts.debug && !opts.sourceMap && utils.isString(opts.code))
-        opts.sourceMap = retrieveSourceMap(opts.code);
+      if (opts.debug && !opts.sourceMap && utils.isString(opts.bundle))
+        opts.sourceMap = retrieveSourceMap(opts.bundle);
+
+      var bundle = utils.isString(opts.bundle) ?
+        runtime.createScript(opts.bundle) :
+        opts.bundle;
 
       var code = utils.isString(opts.code) ?
         runtime.createScript(opts.code) :
@@ -70,7 +74,11 @@ function evaluate(opts, cb) {
         runtime.evaluate(ctx, patchStackTraceScript);
       }
 
-      runtime.evaluate(ctx, code);
+      if (bundle)
+        runtime.evaluate(ctx, bundle);
+      if (code)
+        runtime.evaluate(ctx, code);
+
     } catch(err) {
       cb(err);
     }
