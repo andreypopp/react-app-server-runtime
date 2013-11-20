@@ -19,7 +19,7 @@ module.exports = {
       sandbox[k] = globals[k];
     }
 
-    sandbox.self = sandbox.window = sandbox;
+    sandbox.self = sandbox;
 
     return vm.createContext(sandbox);
   },
