@@ -1,6 +1,6 @@
 {
   "name": "react-app-server-runtime",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Minimal Node-based runtime to eval React components on server",
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,6 @@
   "dependencies": {
     "xhr2": "0.0.7",
     "source-map": "~0.1.31",
-    "lodash": "~2.3.0"
+    "lodash": "~2.4.1"
   }
 }
