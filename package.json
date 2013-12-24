@@ -1,6 +1,6 @@
 {
   "name": "react-app-server-runtime",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Minimal Node-based runtime to eval React components on server",
   "main": "index.js",
   "scripts": {
@@ -23,9 +23,6 @@
     "semver": "~2.2.1",
     "mocha": "~1.14.0",
     "jshint": "~2.3.0"
-  },
-  "react-app-server-runtime": {
-    "./a": "./b"
   },
   "dependencies": {
     "xhr2": "0.0.7",
