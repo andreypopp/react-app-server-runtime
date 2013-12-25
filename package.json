@@ -1,6 +1,6 @@
 {
   "name": "react-app-server-runtime",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Minimal Node-based runtime to eval React components on server",
   "main": "index.js",
   "scripts": {
