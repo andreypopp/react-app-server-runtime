@@ -96,7 +96,6 @@ function makeTransform(mapping) {
         readMappingFromPackage('react-app-server-runtime', filename)
           .then(function(pkgMapping) {
             var map = extend(mapping, pkgMapping);
-            console.log(map, filename);
             var mapped = map[filename];
             if (mapped) {
               var id = './' + path.relative(path.dirname(filename), mapped);
