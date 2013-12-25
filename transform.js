@@ -15,6 +15,8 @@ function makeModule(id) {
   return "module.exports = require('" + id + "');";
 }
 
+var moduleStub = "module.exports = new Error('requires DOM');";
+
 function promisify(func) {
   return function() {
     var promise = kew.defer();
@@ -41,9 +43,14 @@ function resolveMappingDomain(mapping, dir) {
 function resolveMappingImage(mapping, dir) {
   var resolved = {};
   var resolutions = Object.keys(mapping).map(function(key) {
-    return resolve(mapping[key], {basedir: dir}).then(function(id) {
-      resolved[key] = id;
-    });
+    var val = mapping[key];
+    if (val === false) {
+      resolved[key] = false;
+    } else {
+      return resolve(val, {basedir: dir}).then(function(id) {
+        resolved[key] = id;
+      });
+    }
   });
   return kew.all(resolutions).then(function() { return resolved; });
 }
@@ -94,6 +101,8 @@ function makeTransform(mapping) {
             if (mapped) {
               var id = './' + path.relative(path.dirname(filename), mapped);
               data = makeModule(id);
+            } else if (mapped === false) {
+              data = moduleStub;
             }
             self.queue(data);
             self.queue(null);
