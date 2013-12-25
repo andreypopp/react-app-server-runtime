@@ -81,7 +81,11 @@ function readMappingFromPackage(key, filename) {
 function makeTransform(mapping) {
   mapping = mapping || {};
 
+  // dir -> pkgMapping
+  var pkgMappingCache= {};
+
   return function(filename) {
+    var dirname = path.dirname(filename);
     var data = '';
 
     return through(
@@ -93,19 +97,29 @@ function makeTransform(mapping) {
           self.emit('error', err);
         }
 
-        readMappingFromPackage('react-app-server-runtime', filename)
-          .then(function(pkgMapping) {
-            var map = extend(mapping, pkgMapping);
-            var mapped = map[filename];
-            if (mapped) {
-              var id = './' + path.relative(path.dirname(filename), mapped);
-              data = makeModule(id);
-            } else if (mapped === false) {
-              data = moduleStub;
-            }
-            self.queue(data);
-            self.queue(null);
-          }, onError)
+        function onSuccess(pkgMapping) {
+          pkgMappingCache[dirname] = pkgMapping;
+
+          var map = extend(mapping, pkgMapping);
+          var mapped = map[filename];
+          if (mapped) {
+            var id = './' + path.relative(dirname, mapped);
+            data = makeModule(id);
+          } else if (mapped === false) {
+            data = moduleStub;
+          }
+          self.queue(data);
+          self.queue(null);
+        }
+
+        var pkgMapping = pkgMappingCache[dirname];
+
+        if (pkgMapping) {
+          onSuccess(pkgMapping);
+        } else {
+          readMappingFromPackage('react-app-server-runtime', filename)
+            .then(onSuccess, onError)
+        }
       });
   }
 }
