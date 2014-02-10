@@ -1,5 +1,8 @@
 # react-app-server-runtime
 
+**DEPRECATION WARNING:** This is not maintained anymore, please use
+[react-quickstart](https://github.com/andreypopp/react-quickstart) instead.
+
 Node.js based runtime to evaluate client side code in. By default provides
 minimalistic sandboxed runtime via `vm` Node's module.
 
